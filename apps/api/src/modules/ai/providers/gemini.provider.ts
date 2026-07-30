@@ -322,7 +322,7 @@ ${context.welcomeMessage ? `Store Context: "${context.welcomeMessage}"` : ''}`;
               orderNumber: orderCreated.orderNumber,
               product: `${p.name}${variant?.size ? ` (Size: ${variant.size})` : ''}`,
               quantity: args.quantity || 1,
-              itemPrice: `Rs. ${p.price * (args.quantity || 1)}`,
+              itemPrice: `Rs. ${Number(p.price) * (args.quantity || 1)}`,
               deliveryFee: 'Rs. 350',
               totalAmount: `Rs. ${orderCreated.total}`,
               paymentMethod: args.paymentMethod,

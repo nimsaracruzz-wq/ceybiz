@@ -1,4 +1,4 @@
-﻿import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { EntitlementService } from './entitlement.service';
 import { ActiveTenant } from '../tenant/tenant.decorator';
@@ -38,7 +38,7 @@ export class EntitlementController {
     const defaultBusiness = businessId || (await this.prisma.business.findFirst())?.id;
     if (!defaultBusiness) return { success: false, error: 'No business tenant' };
 
-    const newSub = await this.entitlementService.subscribeToPlan(defaultBusiness, planTier);
+    const newSub = await this.entitlementService.subscribeToPlan(defaultBusiness, planTier as any);
     return { success: true, subscription: newSub };
   }
 

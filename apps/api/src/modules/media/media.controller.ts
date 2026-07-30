@@ -64,7 +64,7 @@ export class MediaController {
   @ApiOperation({ summary: 'Upload file directly from computer' })
   async uploadFile(
     @ActiveTenant() businessId: string,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: any,
   ) {
     const defaultBusiness = businessId || (await this.mediaService['prisma'].business.findFirst())?.id;
     const fileUrl = `http://localhost:4000/uploads/${file.filename}`;

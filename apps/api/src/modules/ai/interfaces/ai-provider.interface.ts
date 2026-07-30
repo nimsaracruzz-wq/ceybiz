@@ -16,6 +16,7 @@ export interface AiResponse {
   replyText: string;
   toolsUsed?: string[];
   orderCreated?: any;
+  productImageUrl?: string | null;
   inputTokens: number;
   outputTokens: number;
 }

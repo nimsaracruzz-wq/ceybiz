@@ -173,6 +173,7 @@ export class WebhookController {
                   accessToken: sendToken || '',
                   recipientPhone: fromPhone,
                   mediaUrl: pUrl,
+                  type: 'image',
                 });
                 // Small 100ms pause to ensure Meta processes photos in exact 1, 2, 3... order
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -207,6 +208,7 @@ export class WebhookController {
                 recipientPhone: fromPhone,
                 mediaUrl: primaryImageUrl,
                 caption: result.outboundMessage.content,
+                type: 'image',
               });
             } else {
               await this.metaWhatsAppService.sendTextMessage({
