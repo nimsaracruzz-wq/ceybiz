@@ -79,7 +79,7 @@ export class WebhookController {
       });
 
       const businessId = waAccount?.businessId || (await this.prisma.business.findFirst())?.id;
-      const sendToken = waAccount?.accessToken;
+      const sendToken = waAccount?.accessToken || this.configService.get<string>('META_ACCESS_TOKEN');
 
       let contentText = '';
       let downloadedAudioBuffer: Buffer | undefined = undefined;
@@ -130,8 +130,8 @@ export class WebhookController {
 
       // If AI produced outbound reply message, send back via Meta Cloud API
       if (result.mode === 'AI' && result.outboundMessage?.content) {
-        const sendPhoneId = waAccount?.phoneNumberId || phoneNumberId;
-        const sendToken = waAccount?.accessToken;
+        const sendPhoneId = waAccount?.phoneNumberId || phoneNumberId || this.configService.get<string>('META_PHONE_NUMBER_ID');
+        const sendToken = waAccount?.accessToken || this.configService.get<string>('META_ACCESS_TOKEN');
         this.logger.log(`Processing outbound response for ${fromPhone} (isFirstMessage: ${isFirstCustomerMessage})...`);
         try {
           // Check for saved custom sequence sets
