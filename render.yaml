@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: ceybiz-api
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build:shared && npm run build:api
+    startCommand: npx prisma migrate deploy --schema=apps/api/prisma/schema.prisma && npm run start:api
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: AI_PROVIDER
+        value: gemini
+      - key: MESSAGING_PROVIDER
+        value: whatsapp
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: META_GRAPH_API_VERSION
+        value: v20.0
+      - key: META_WEBHOOK_VERIFY_TOKEN
+        value: wh_verify_secret_123
+      - key: META_PHONE_NUMBER_ID
+        value: "1150528594819826"
+      - key: META_WABA_ID
+        value: "2533348427170652"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ceybiz-db
+          property: connectionString
+
+databases:
+  - name: ceybiz-db
+    plan: free
